@@ -1,16 +1,14 @@
 const { isCommunityResourcable } = require("@ethersproject/providers");
 const ethers = require("ethers");
 const fs = require("fs-extra");
+require("dotenv").config();
 
 async function main() {
   // http://127.0.0.1:7545
   const provider = new ethers.providers.JsonRpcProvider(
     "http://127.0.0.1:7545"
   );
-  const wallet = new ethers.Wallet(
-    "a87c7fd328f2d4b860b3c0bf6342eea6aff3f50879f7cf367b7dc010ff0f32cc",
-    provider
-  );
+  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
   const abi = fs.readFileSync("./SimpleStorage_sol_SimpleStorage.abi", "utf8");
   const binary = fs.readFileSync(
     "./SimpleStorage_sol_SimpleStorage.bin",
